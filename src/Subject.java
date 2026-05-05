@@ -18,20 +18,17 @@ public class Subject {
         this.totalClasses = totalClasses;
     }
 
-    // Getters
     public String getSubjectId()   { return subjectId; }
     public String getSubjectName() { return subjectName; }
     public String getSubjectCode() { return subjectCode; }
     public String getTeacherId()   { return teacherId; }
     public int    getTotalClasses(){ return totalClasses; }
 
-    // Setters
     public void setTotalClasses(int totalClasses) {
         if (totalClasses < 0) throw new IllegalArgumentException("Total classes cannot be negative.");
         this.totalClasses = totalClasses;
     }
 
-    /** Increment class count when a new lecture is recorded. */
     public void incrementTotalClasses() { this.totalClasses++; }
 
     @Override
