@@ -1,5 +1,11 @@
 # Attendance Management System — Java
 
+## How To Run
+
+``` Bash
+javac -d out src/attendance/*.java
+java -cp out attendance.AttendanceSystemDemo
+```
 
 ## Class Diagram
 
