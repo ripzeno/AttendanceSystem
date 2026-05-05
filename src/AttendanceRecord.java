@@ -23,7 +23,7 @@ public class AttendanceRecord {
     private String           subjectId;
     private LocalDate        date;
     private AttendanceStatus status;
-    private String           remarks
+    private String           remarks;
     private String           recordedBy;
     public AttendanceRecord(String recordId, String studentId, String subjectId,
                             LocalDate date, AttendanceStatus status,
