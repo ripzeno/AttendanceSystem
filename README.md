@@ -7,19 +7,32 @@ javac -d out src/attendance/*.java
 java -cp out attendance.AttendanceSystemDemo
 ```
 
+## Team Members
+```
+┌─────────────────────────────────────────────┐
+|  Roll No                   Student Name     |
+│─────────────────────────────────────────────│
+|  AM.SC.U4CSE25323  :   Ishaan S Vanneri     |
+|  AM.SC.U4CSE25338  :  Niharika S H          |
+|  AM.SC.U4CSE25362  :   Ganga J              |
+|  AM.SC.U4CSE25326  :   Karthikeya S Arun    |
+|  AM.SC.U4CSE25330  :   Madhav S Thampi      |
+└─────────────────────────────────────────────┘
+```
+
 ## Class Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    <<abstract>>  User                        │
+│                    <<abstract>>  User                       │
 │─────────────────────────────────────────────────────────────│
-│ - userId  : String                                           │
-│ - name    : String                                           │
-│ - email   : String                                           │
-│ - role    : String                                           │
+│ - userId  : String                                          │
+│ - name    : String                                          │
+│ - email   : String                                          │
+│ - role    : String                                          │
 │─────────────────────────────────────────────────────────────│
-│ + displayDashboard(manager: AttendanceManager) <<abstract>>  │
-│ + getters / setters                                          │
+│ + displayDashboard(manager: AttendanceManager) <<abstract>> │
+│ + getters / setters                                         │
 └───────────────────┬─────────────────────┬───────────────────┘
                     │ extends              │ extends
           ┌─────────┴─────────┐  ┌────────┴────────┐
@@ -42,7 +55,7 @@ java -cp out attendance.AttendanceSystemDemo
 │──────────────────│    │ - remarks     : String              │
 │ + getters/setters│    │ - recordedBy  : String              │
 │ + incrementTotal │    │─────────────────────────────────────│
-└──────────────────┘    │ + isPresent() / isAbsent()         │
+└──────────────────┘    │ + isPresent() / isAbsent()          │
                         │ + setStatus() [controlled edit]     │
                         └─────────────────────────────────────┘
 
@@ -84,57 +97,17 @@ java -cp out attendance.AttendanceSystemDemo
 └──────────────────────────────────────────────────────────────┘
 ```
 
----
+## Project Description
 
-## OOP Design Decisions
-
-### 1. Inheritance & Polymorphism
-`User` is an **abstract base class** with an abstract `displayDashboard()` method.
-`Student` and `Teacher` each override it differently:
-- `Student.displayDashboard()` → shows only that student's own records
-- `Teacher.displayDashboard()` → shows class-wide summaries and low-attendance alerts
-
-The demo calls `user.displayDashboard(manager)` — a single polymorphic call that
-produces the correct view for whoever is logged in, without any `instanceof` checks.
-
-### 2. Encapsulation
-- `AttendanceRecord.setStatus()` is the **only** way to edit a record — it
-  forces a remark to be supplied, preserving the audit trail.
-- `AttendanceSummary` is computed and immutable (no setters). A fresh instance is
-  returned whenever records change, avoiding stale cached data.
-- All collections in `AttendanceManager` are private; external code must go
-  through provided query methods.
-
-### 3. Abstraction
-`AttendanceManager` is the single service layer. UI classes (`Student`,
-`Teacher`, `AttendanceSystemDemo`) never touch the raw collections directly —
-they call manager methods and receive clean result objects or formatted output.
-
-### 4. Separation of Concerns
-| Layer | Class(es) |
-|---|---|
-| Data / Entities | `User`, `Student`, `Teacher`, `Subject`, `AttendanceRecord` |
-| Value Object | `AttendanceSummary` |
-| Business Logic | `AttendanceManager` |
-| UI / Presentation | `AttendanceSystemDemo`, `displayDashboard()` in each User subclass |
-
-### 5. Role-Based Access
-Enforced structurally — not by an if-check, but by **which `displayDashboard()`
-is called**. A `Student` instance can never call teacher-only methods directly;
-it calls its own overridden implementation which only queries `manager` for its
-own `userId`. A `Teacher` instance calls the class-wide query methods.
-
-### 6. Attendance Calculation Formula
-```
-attendancePercent   = (classesAttended / totalClasses) × 100
-minRequired         = ⌈totalClasses × threshold⌉
-allowableAbsences   = max(0,  totalClasses − minRequired − classesAbsent)
-```
-Leave-tagged absences are tracked separately and not penalised in the
-compliance check (they count as neither present nor absent for threshold
-purposes — an institution-level policy choice made explicit in the model).
+This project is an Attendance Management System built using Java and object-oriented principles.
+It uses an abstract User class with Student and Teacher subclasses to demonstrate abstraction, inheritance, and polymorphism.
+The system manages students, subjects, and attendance records using Java Collections like HashMap, ArrayList, and Set.
+Attendance is recorded per session and analyzed using Streams API to generate summaries and reports.
+It calculates attendance percentage and checks against a minimum threshold to identify low attendance.
+Overall, the system is modular, scalable, and simulates a real-world academic attendance tracking system.
 
 ---
+
 
 ## Sample Console Output
 
