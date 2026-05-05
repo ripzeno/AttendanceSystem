@@ -11,7 +11,7 @@ public class AttendanceManager {
     private final Map<String, Subject>         subjects   = new HashMap<>();
     private final List<AttendanceRecord>       records    = new ArrayList<>();
 
-    rivate final Map<String, Set<String>>     enrollment = new HashMap<>();
+    private final Map<String, Set<String>>     enrollment = new HashMap<>();
 
     private final double minAttendanceThreshold; 
     private int recordCounter = 1;
