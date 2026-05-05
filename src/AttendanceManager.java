@@ -79,7 +79,7 @@ public class AttendanceManager {
                 return true;
             }
         }
-        return false;
+        return false;}
 
     public AttendanceSummary computeSummary(String studentId, String subjectId) {
         Student student = getStudentOrThrow(studentId);
